@@ -4,27 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MAPS</title>
+  <!-- Inclusão do CSS do MapTiler SDK -->
+  <link href='https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css' rel='stylesheet' />
   <style>
-        
-
-   
-
     body {
         background-color: black;
         padding: 20px; /* Adicione espaço interno para evitar que o conteúdo toque nas bordas */
     }
 
     .container {
-        border: 10px solid white;
+        border: 1px solid white;
         border-radius: 20px;
         padding: 20px; /* Adapte este valor conforme necessário */
         font-weight: bold;
+        height: 400px; /* Defina uma altura para o contêiner do mapa */
     }
-</style>
 
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container"></div>
+  <div class="container" id="map"></div>
+  
+  <!-- Seu código JavaScript vem aqui -->
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.js"></script>
+  <script>
+    // Substitua "import * as maptilersdk from '@maptiler/sdk';" por referências diretas, pois não estamos em um módulo.
+    maptiler.config.apiKey = 'hI4Vpy6nidaL0kvsTU8F'; // Substitua 'hI4Vpy6nidaL0kvsTU8F' pela sua chave de API real
+    const map = new maptiler.Map({
+      container: 'map', // container's id
+      style: maptiler.MapStyle.STREETS,
+      center: [16.62662018, 49.2125578], // starting position [lng, lat]
+      zoom: 14, // starting zoom
+    });
+  </script>
 </body>
 </html>
