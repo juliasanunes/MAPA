@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <title>Display a map</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
   <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
   <style>
@@ -27,9 +28,13 @@
       z-index: 1000;
     }
   </style>
+ 
 </head>
 
 <body>
+  <h1>Dados da Força do Sinal</h1>
+    <button id="loadData">Carregar Dados</button>
+    <div id="dataContainer"></div>
   <div id="map">
 
   </div>
@@ -67,6 +72,43 @@
         map.setStyle(maptilersdk.MapStyle[style_code[0]] || style_code[0]);
     });
   </script>
+  <script>
+    document.getElementById('loadData').addEventListener('click', function() {
+        const apiToken = 'SFWLzKwTcwfgZ9P6dCxPuXmHhXWiRDCm2KtsCWztDovBj7bAJMRPqHmcs4de';
+        const url = 'https://api.pulsus.mobi/v2/signal_strengths?page=1&per_page=500&device_id=1';
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'ApiToken': apiToken
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('A requisição falhou: ' + response.status);
+        })
+        .then(data => {
+            const container = document.getElementById('dataContainer');
+            container.innerHTML = ''; // Limpa o conteúdo anterior
+            data.data.forEach(item => {
+                const element = document.createElement('div');
+                element.innerHTML = `
+                    <p>ID: ${item.id}</p>
+                    <p>Operadora: ${item.attributes.operator}</p>
+                    <p>Tipo de Rede: ${item.attributes.network_type}</p>
+                    <p>Força do Sinal: ${item.attributes.strength}</p>
+                `;
+                container.appendChild(element);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os dados:', error);
+        });
+    });
+</script>
 </body>
 
 </html>
