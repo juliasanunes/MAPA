@@ -10,23 +10,28 @@
   <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
   <style>
     body {
-      margin: 0;
-      padding: 0;
-    }
+  margin: 0;
+  padding: 0;
+}
 
-    #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
+#content {
+  position: relative;
+  z-index: 2; /* Garante que o conteúdo fique acima do mapa */
+}
 
-    .mapstyles-select {
-      position: relative;
-      top: 5px;
-      left: 5px;
-      z-index: 1000;
-    }
+#map {
+  position: absolute;
+  top: 150px; /* Espaço no topo para o conteúdo */
+  bottom: 0;
+  width: 100%;
+}
+
+.mapstyles-select {
+  position: absolute;
+  top: 160px; /* Ajuste conforme necessário */
+  left: 5px;
+  z-index: 1000;
+}
   </style>
  
 </head>
